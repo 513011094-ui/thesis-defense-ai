@@ -1,9 +1,9 @@
 import { NextRequest } from "next/server";
 import { llmClient } from "@/lib/llm/client";
 import { buildSystemPrompt } from "@/lib/prompts/system";
-import { mentorZhangPrompt } from "@/lib/prompts/mentor-zhang";
+import { buildMentorZhangPrompt } from "@/lib/prompts/mentor-zhang";
 import { buildMentorWangPrompt } from "@/lib/prompts/mentor-wang";
-import { mentorLinPrompt } from "@/lib/prompts/mentor-lin";
+import { buildMentorLinPrompt } from "@/lib/prompts/mentor-lin";
 import { followUpPrompt } from "@/lib/prompts/follow-up";
 import {
   buildStructureSummary,
@@ -34,13 +34,13 @@ interface DefenseRequest {
 function getMentorPrompt(role: MentorRole, thesisInfo: ThesisInfo): string {
   switch (role) {
     case "chief":
-      return mentorZhangPrompt;
+      return buildMentorZhangPrompt(thesisInfo);
     case "professional":
       return buildMentorWangPrompt(thesisInfo);
     case "expansion":
-      return mentorLinPrompt;
+      return buildMentorLinPrompt(thesisInfo);
     default:
-      return mentorZhangPrompt;
+      return buildMentorZhangPrompt(thesisInfo);
   }
 }
 
@@ -78,7 +78,7 @@ export async function POST(request: NextRequest) {
     let userMessage: string;
 
     if (action === "question") {
-      userMessage = buildQuestionUserMessage(chapters, chapterIndex, messages);
+      userMessage = buildQuestionUserMessage(chapters, chapterIndex, messages, currentMentor);
     } else {
       // follow_up action
       userMessage = buildFollowUpUserMessage(

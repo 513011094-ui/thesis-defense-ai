@@ -4,7 +4,6 @@ import { useRef, useEffect } from "react";
 import MentorMessage from "./MentorMessage";
 import UserAnswer from "./UserAnswer";
 import OpeningCeremony from "./OpeningCeremony";
-import Loading from "@/components/ui/Loading";
 import { useDefenseStore } from "@/store/defenseStore";
 
 interface DefenseStageProps {
@@ -33,7 +32,7 @@ export default function DefenseStage({
   }, [messages, streamingContent]);
 
   return (
-    <div className="flex flex-col h-full bg-gradient-to-b from-gray-50 to-white">
+    <div className="flex flex-col h-full">
       {/* 消息区域 */}
       <div className="flex-1 overflow-y-auto px-6 py-4">
         {phase === "opening" && (
@@ -44,7 +43,10 @@ export default function DefenseStage({
           if (msg.sender === "system") {
             return (
               <div key={msg.id} className="flex justify-center my-4">
-                <span className="text-xs text-gray-400 bg-gray-100 px-3 py-1 rounded-full">
+                <span
+                  className="text-xs px-3 py-1 rounded-full"
+                  style={{ background: "var(--lp-surface-hover)", color: "var(--lp-text-subtle)" }}
+                >
                   {msg.content}
                 </span>
               </div>
@@ -65,14 +67,23 @@ export default function DefenseStage({
               <div className="flex-1 flex justify-end">
                 <div className="max-w-[80%]">
                   <div className="flex items-center gap-2 mb-1 justify-end">
-                    <span className="text-xs text-gray-400">我</span>
+                    <span className="text-xs" style={{ color: "var(--lp-text-subtle)" }}>我</span>
                   </div>
-                  <div className="bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-2xl rounded-tr-sm px-4 py-3 text-sm leading-relaxed shadow-sm">
+                  <div
+                    className="rounded-2xl rounded-tr-sm px-4 py-3 text-sm leading-relaxed"
+                    style={{
+                      background: "var(--lp-text-strong)",
+                      color: "#fff",
+                    }}
+                  >
                     {msg.content}
                   </div>
                 </div>
               </div>
-              <div className="flex-shrink-0 w-8 h-8 rounded-full bg-gradient-to-br from-emerald-400 to-teal-500 flex items-center justify-center text-white text-xs font-bold">
+              <div
+                className="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center text-white text-xs font-bold"
+                style={{ background: "linear-gradient(135deg, #667eea, #764ba2)" }}
+              >
                 我
               </div>
             </div>
@@ -91,14 +102,14 @@ export default function DefenseStage({
         {/* 加载中 */}
         {isLoading && !isStreaming && (
           <div className="flex gap-3 mb-4">
-            <div className="w-10 h-10 rounded-full bg-gray-200 animate-pulse" />
+            <div className="w-10 h-10 rounded-full animate-pulse" style={{ background: "var(--lp-surface-hover)" }} />
             <div className="flex-1">
-              <div className="h-4 bg-gray-100 rounded-full w-24 mb-2 animate-pulse" />
-              <div className="bg-gray-50 rounded-2xl rounded-tl-sm px-4 py-3">
+              <div className="h-4 rounded-full w-24 mb-2 animate-pulse" style={{ background: "var(--lp-surface-hover)" }} />
+              <div className="rounded-2xl rounded-tl-sm px-4 py-3" style={{ background: "var(--lp-surface-hover)" }}>
                 <div className="flex gap-1.5">
-                  <span className="w-2 h-2 bg-gray-300 rounded-full animate-bounce" style={{ animationDelay: "0ms" }} />
-                  <span className="w-2 h-2 bg-gray-300 rounded-full animate-bounce" style={{ animationDelay: "150ms" }} />
-                  <span className="w-2 h-2 bg-gray-300 rounded-full animate-bounce" style={{ animationDelay: "300ms" }} />
+                  <span className="w-2 h-2 rounded-full animate-bounce" style={{ background: "var(--lp-border-strong)", animationDelay: "0ms" }} />
+                  <span className="w-2 h-2 rounded-full animate-bounce" style={{ background: "var(--lp-border-strong)", animationDelay: "150ms" }} />
+                  <span className="w-2 h-2 rounded-full animate-bounce" style={{ background: "var(--lp-border-strong)", animationDelay: "300ms" }} />
                 </div>
               </div>
             </div>
@@ -115,10 +126,13 @@ export default function DefenseStage({
 
       {/* 答辩完成提示 */}
       {phase === "reviewing" && (
-        <div className="border-t border-gray-100 bg-white/80 backdrop-blur-sm p-6 text-center">
+        <div className="glass border-t border-white/30 p-6 text-center" style={{ borderRadius: 0 }}>
           <div className="inline-flex items-center gap-3">
-            <div className="w-5 h-5 border-2 border-blue-500 border-t-transparent rounded-full animate-spin" />
-            <span className="text-gray-600">答辩结束，评审导师正在撰写评语...</span>
+            <div
+              className="w-5 h-5 border-2 border-t-transparent rounded-full animate-spin"
+              style={{ borderColor: "var(--lp-text-strong)", borderTopColor: "transparent" }}
+            />
+            <span style={{ color: "var(--lp-text-muted)" }}>答辩结束，评审导师正在撰写评语...</span>
           </div>
         </div>
       )}

@@ -23,6 +23,9 @@ interface DefenseState {
   // 评分报告
   report: EvaluationReport | null;
 
+  // UI 状态
+  sidebarVisible: boolean;
+
   // Actions
   setThesisData: (result: ThesisParseResult) => void;
   setPhase: (phase: DefensePhase) => void;
@@ -36,6 +39,7 @@ interface DefenseState {
   incrementGuidanceUsed: () => void;
   setStressLevel: (level: number) => void;
   setReport: (report: EvaluationReport) => void;
+  setSidebarVisible: (visible: boolean) => void;
   reset: () => void;
 }
 
@@ -53,6 +57,7 @@ const initialState = {
   stressLevel: 2,
   guidanceUsedCount: 0,
   report: null,
+  sidebarVisible: true,
 };
 
 export const useDefenseStore = create<DefenseState>((set) => ({
@@ -77,5 +82,6 @@ export const useDefenseStore = create<DefenseState>((set) => ({
   incrementGuidanceUsed: () => set((s) => ({ guidanceUsedCount: s.guidanceUsedCount + 1 })),
   setStressLevel: (level) => set({ stressLevel: level }),
   setReport: (report) => set({ report }),
+  setSidebarVisible: (visible) => set({ sidebarVisible: visible }),
   reset: () => set(initialState),
 }));

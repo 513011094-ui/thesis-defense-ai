@@ -9,13 +9,13 @@ interface OpeningCeremonyProps {
 
 export default function OpeningCeremony({ onStart, thesisTitle }: OpeningCeremonyProps) {
   return (
-    <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-8 mb-6">
+    <div className="glass-card p-8 mb-6">
       <div className="text-center mb-8">
-        <h2 className="text-2xl font-bold text-gray-900 mb-2">
+        <h2 className="text-2xl font-bold mb-2" style={{ color: "var(--lp-text-strong)" }}>
           答辩委员会已就位
         </h2>
         {thesisTitle && (
-          <p className="text-gray-500 text-sm">论文：《{thesisTitle}》</p>
+          <p className="text-sm" style={{ color: "var(--lp-text-muted)" }}>论文：《{thesisTitle}》</p>
         )}
       </div>
 
@@ -23,28 +23,35 @@ export default function OpeningCeremony({ onStart, thesisTitle }: OpeningCeremon
         {MENTOR_ORDER.map((role) => {
           const m = MENTORS[role];
           return (
-            <div key={role} className="text-center p-4 rounded-xl bg-gray-50 border border-gray-100">
+            <div
+              key={role}
+              className="text-center p-4 rounded-xl"
+              style={{ background: "var(--lp-surface-hover)", border: "1px solid var(--lp-border-divider)" }}
+            >
               <Avatar
                 src={MENTOR_AVATARS[role]}
                 fallback={MENTOR_INITIALS[role]}
                 size="lg"
                 className="mx-auto mb-3"
               />
-              <p className="font-medium text-gray-900 text-sm">{m.name}{m.title}</p>
-              <p className="text-xs text-gray-400 mt-0.5">{MENTOR_LABELS[role]}</p>
+              <p className="font-medium text-sm" style={{ color: "var(--lp-text-strong)" }}>{m.name}{m.title}</p>
+              <p className="text-xs mt-0.5" style={{ color: "var(--lp-text-subtle)" }}>{MENTOR_LABELS[role]}</p>
             </div>
           );
         })}
       </div>
 
-      <div className="bg-blue-50 rounded-xl p-4 mb-6 text-sm text-gray-600 space-y-1.5">
-        <p>本次答辩共 <span className="font-medium text-gray-900">5个问题</span>，预计 <span className="font-medium text-gray-900">5-8分钟</span></p>
+      <div
+        className="rounded-xl p-4 mb-6 text-sm space-y-1.5"
+        style={{ background: "rgba(25, 25, 25, 0.03)", color: "var(--lp-text-muted)" }}
+      >
+        <p>本次答辩共 <span className="font-medium" style={{ color: "var(--lp-text-strong)" }}>5个问题</span>，预计 <span className="font-medium" style={{ color: "var(--lp-text-strong)" }}>5-8分钟</span></p>
         <p>提问将由浅入深，循序渐进</p>
         <p>请结合论文内容，给出具体、有条理的回答</p>
       </div>
 
       <div className="text-center">
-        <Button size="lg" onClick={onStart} className="px-16 shadow-md">
+        <Button size="lg" onClick={onStart} className="px-16">
           开始答辩
         </Button>
       </div>

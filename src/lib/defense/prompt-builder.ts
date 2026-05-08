@@ -41,7 +41,8 @@ export function buildMessageHistory(messages: DefenseMessage[]): string {
 export function buildQuestionUserMessage(
   chapters: ThesisChapter[],
   currentIndex: number,
-  messageHistory: DefenseMessage[]
+  messageHistory: DefenseMessage[],
+  mentorRole?: MentorRole
 ): string {
   const chapterContext = buildChapterContext(chapters, currentIndex);
   const history = buildMessageHistory(messageHistory);
@@ -52,7 +53,16 @@ export function buildQuestionUserMessage(
     msg += `\n\n## 已有对话记录\n\n${history}`;
   }
 
-  msg += `\n\n请基于以上论文内容提出一个专业问题。只输出问题，不要输出其他内容。`;
+  // 导师3（学术拓展导师）需要特殊指令：复盘前面的回答
+  if (mentorRole === "expansion" && history) {
+    msg += `\n\n## 特别指令
+你是学术拓展导师林婉清教授。请仔细分析上面的对话记录：
+- 如果这是你的第1或第2个问题：从学生的回答中找出优点或漏洞，引用具体回答内容进行追问。指出矛盾、含糊或不充分的地方。
+- 如果这是你的第3个问题：提出一个发散性的开放问题，跳出论文本身考察思维广度。
+只输出问题，不要输出其他内容。`;
+  } else {
+    msg += `\n\n请基于以上论文内容提出一个专业问题。只输出问题，不要输出其他内容。`;
+  }
 
   return msg;
 }

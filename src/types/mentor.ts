@@ -21,10 +21,10 @@ export const MENTOR_LABELS: Record<MentorRole, string> = {
 
 /** 导师头像路径 */
 export const MENTOR_AVATARS: Record<MentorRole, string> = {
-  chief: "/avatars/zhang.png",
-  professional: "/avatars/wang.png",
-  expansion: "/avatars/lin.png",
-  reviewer: "/avatars/chen.png",
+  chief: "/avatars/导师1.png",
+  professional: "/avatars/导师2.png",
+  expansion: "/avatars/导师3.png",
+  reviewer: "/avatars/导师4.png",
 };
 
 /** 导师头像回退文字（姓氏） */

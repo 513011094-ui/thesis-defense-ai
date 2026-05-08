@@ -3,7 +3,6 @@
 import { useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 import Button from "@/components/ui/Button";
-import Card from "@/components/ui/Card";
 import { useThesisParser } from "@/hooks/useThesisParser";
 import { useDefenseStore } from "@/store/defenseStore";
 import type { DegreeType } from "@/types/thesis";
@@ -38,14 +37,19 @@ export default function ThesisUploadForm() {
   };
 
   return (
-    <Card className="p-8">
+    <div className="glass-card p-8">
       <form onSubmit={handleSubmit} className="space-y-6">
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block text-sm font-medium mb-2" style={{ color: "var(--lp-text-primary)" }}>
             上传论文文件（DOCX）
           </label>
           <div
-            className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-blue-400 transition-colors cursor-pointer"
+            className="border-2 border-dashed rounded-lg p-8 text-center transition-colors cursor-pointer"
+            style={{
+              borderColor: "var(--lp-border-strong)",
+            }}
+            onMouseEnter={(e) => (e.currentTarget.style.borderColor = "var(--lp-text-strong)")}
+            onMouseLeave={(e) => (e.currentTarget.style.borderColor = "var(--lp-border-strong)")}
             onClick={() => fileRef.current?.click()}
           >
             <input
@@ -56,16 +60,16 @@ export default function ThesisUploadForm() {
               className="hidden"
             />
             {file ? (
-              <p className="text-gray-700">
+              <p style={{ color: "var(--lp-text-primary)" }}>
                 <span className="font-medium">{file.name}</span>
-                <span className="text-gray-400 ml-2">
+                <span className="ml-2" style={{ color: "var(--lp-text-subtle)" }}>
                   ({(file.size / 1024 / 1024).toFixed(1)}MB)
                 </span>
               </p>
             ) : (
               <div>
-                <p className="text-gray-500">点击此处选择文件</p>
-                <p className="text-gray-400 text-sm mt-1">支持 DOCX 格式</p>
+                <p style={{ color: "var(--lp-text-muted)" }}>点击此处选择文件</p>
+                <p className="text-sm mt-1" style={{ color: "var(--lp-text-subtle)" }}>支持 DOCX 格式</p>
               </div>
             )}
           </div>
@@ -73,11 +77,12 @@ export default function ThesisUploadForm() {
 
         <div className="grid grid-cols-3 gap-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">学位类型</label>
+            <label className="block text-sm font-medium mb-1" style={{ color: "var(--lp-text-primary)" }}>学位类型</label>
             <select
               value={degree}
               onChange={(e) => setDegree(e.target.value as DegreeType)}
-              className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              className="w-full rounded-lg px-3 py-2 focus:ring-2 focus:ring-gray-300"
+              style={{ border: "1px solid var(--lp-border-strong)", color: "var(--lp-text-primary)" }}
             >
               <option value="本科">本科</option>
               <option value="硕士">硕士</option>
@@ -85,34 +90,36 @@ export default function ThesisUploadForm() {
             </select>
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">专业领域 *</label>
+            <label className="block text-sm font-medium mb-1" style={{ color: "var(--lp-text-primary)" }}>专业领域 *</label>
             <input
               type="text"
               value={major}
               onChange={(e) => setMajor(e.target.value)}
               placeholder="如：计算机科学与技术"
-              className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              className="w-full rounded-lg px-3 py-2 focus:ring-2 focus:ring-gray-300"
+              style={{ border: "1px solid var(--lp-border-strong)", color: "var(--lp-text-primary)" }}
               required
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">论文标题</label>
+            <label className="block text-sm font-medium mb-1" style={{ color: "var(--lp-text-primary)" }}>论文标题</label>
             <input
               type="text"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               placeholder="可选，自动识别"
-              className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              className="w-full rounded-lg px-3 py-2 focus:ring-2 focus:ring-gray-300"
+              style={{ border: "1px solid var(--lp-border-strong)", color: "var(--lp-text-primary)" }}
             />
           </div>
         </div>
 
         {error && (
-          <div className="bg-red-50 text-red-600 rounded-lg p-3 text-sm">{error}</div>
+          <div className="rounded-lg p-3 text-sm" style={{ background: "#fef2f2", color: "#dc2626" }}>{error}</div>
         )}
 
         {isParsing && (
-          <div className="bg-blue-50 text-blue-600 rounded-lg p-3 text-sm">{progress}</div>
+          <div className="rounded-lg p-3 text-sm" style={{ background: "rgba(25, 25, 25, 0.03)", color: "var(--lp-text-muted)" }}>{progress}</div>
         )}
 
         <Button
@@ -125,6 +132,6 @@ export default function ThesisUploadForm() {
           {isParsing ? "正在解析论文..." : "开始模拟答辩"}
         </Button>
       </form>
-    </Card>
+    </div>
   );
 }

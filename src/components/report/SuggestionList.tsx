@@ -16,9 +16,9 @@ function cleanSuggestion(suggestion: string): string {
 
 export default function SuggestionList({ suggestions, summary }: SuggestionListProps) {
   return (
-    <div className="bg-white rounded-xl border border-gray-200 p-5 mb-6">
-      <h3 className="font-medium text-gray-900 mb-3">修改建议</h3>
-      <p className="text-gray-600 text-sm mb-4 pb-4 border-b border-gray-100">
+    <div className="glass-card p-5 mb-6">
+      <h3 className="font-medium mb-3" style={{ color: "var(--lp-text-strong)" }}>修改建议</h3>
+      <p className="text-sm mb-4 pb-4" style={{ color: "var(--lp-text-muted)", borderBottom: "1px solid var(--lp-border-divider)" }}>
         {summary}
       </p>
       <ul className="space-y-3">
@@ -26,8 +26,11 @@ export default function SuggestionList({ suggestions, summary }: SuggestionListP
           const priority = getPriorityTag(s);
           const text = cleanSuggestion(s);
           return (
-            <li key={i} className="flex gap-3 text-sm text-gray-700">
-              <span className="flex-shrink-0 w-5 h-5 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-xs font-medium mt-0.5">
+            <li key={i} className="flex gap-3 text-sm" style={{ color: "var(--lp-text-primary)" }}>
+              <span
+                className="flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center text-xs font-medium mt-0.5"
+                style={{ background: "var(--lp-surface-hover)", color: "var(--lp-text-muted)" }}
+              >
                 {i + 1}
               </span>
               <div className="flex-1">

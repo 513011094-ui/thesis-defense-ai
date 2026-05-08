@@ -29,15 +29,16 @@ export default function ReportPage() {
   };
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
-      <div className="max-w-3xl mx-auto px-6 py-12">
+    <main className="min-h-screen px-10 py-10">
+      <div className="mx-auto max-w-2xl">
         {/* 标题 */}
-        <div className="text-center mb-10">
-          <div className="inline-flex items-center gap-2 bg-white border border-gray-100 rounded-full px-4 py-1.5 text-sm text-gray-500 mb-4">
+        <div className="mb-8">
+          <h1 className="text-[28px] font-bold tracking-tight" style={{ color: "var(--lp-text-strong)" }}>
             答辩评分报告
-          </div>
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">一坨答辩</h1>
-          <p className="text-gray-500 text-sm">{thesisInfo.title}</p>
+          </h1>
+          <p className="mt-2 text-[15px]" style={{ color: "var(--lp-text-muted)" }}>
+            {thesisInfo.title}
+          </p>
         </div>
 
         {/* 总分 */}
@@ -64,13 +65,13 @@ export default function ReportPage() {
           <Button variant="outline" className="flex-1" onClick={handleRestart}>
             重新答辩
           </Button>
-          <Button className="flex-1 shadow-md" onClick={() => window.print()}>
+          <Button className="flex-1" onClick={() => window.print()}>
             导出报告
           </Button>
         </div>
 
         {/* 底部 */}
-        <p className="text-center text-xs text-gray-300 mt-8">
+        <p className="text-center text-xs mt-8" style={{ color: "var(--lp-text-subtle)" }}>
           一坨答辩 · AI模拟论文答辩系统
         </p>
       </div>

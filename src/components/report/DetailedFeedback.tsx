@@ -12,25 +12,29 @@ export default function DetailedFeedback({ feedbacks }: DetailedFeedbackProps) {
   };
 
   return (
-    <div className="bg-white rounded-xl border border-gray-200 p-5 mb-6">
-      <h3 className="font-medium text-gray-900 mb-4">关键问题详细评价</h3>
+    <div className="glass-card p-5 mb-6">
+      <h3 className="font-medium mb-4" style={{ color: "var(--lp-text-strong)" }}>关键问题详细评价</h3>
       <div className="space-y-4">
         {feedbacks.map((fb, i) => (
-          <div key={i} className="border border-gray-100 rounded-lg p-4">
+          <div
+            key={i}
+            className="rounded-lg p-4"
+            style={{ border: "1px solid var(--lp-border-divider)" }}
+          >
             <div className="flex items-start justify-between mb-2">
-              <p className="text-sm font-medium text-gray-800 flex-1">
+              <p className="text-sm font-medium flex-1" style={{ color: "var(--lp-text-primary)" }}>
                 问题{i + 1}：{fb.question}
               </p>
               <span className={`text-xs px-2 py-1 rounded-full ml-2 ${getEvalColor(fb.evaluation)}`}>
                 {fb.evaluation}
               </span>
             </div>
-            <div className="text-sm text-gray-600 space-y-2">
-              <p><span className="text-gray-400">回答要点：</span>{fb.answerSummary}</p>
-              <p><span className="text-gray-400">导师评价：</span>{fb.feedback}</p>
+            <div className="text-sm space-y-2" style={{ color: "var(--lp-text-muted)" }}>
+              <p><span style={{ color: "var(--lp-text-subtle)" }}>回答要点：</span>{fb.answerSummary}</p>
+              <p><span style={{ color: "var(--lp-text-subtle)" }}>导师评价：</span>{fb.feedback}</p>
               {fb.improvement && (
-                <p className="text-blue-600">
-                  <span className="text-gray-400">改进建议：</span>{fb.improvement}
+                <p style={{ color: "#2563eb" }}>
+                  <span style={{ color: "var(--lp-text-subtle)" }}>改进建议：</span>{fb.improvement}
                 </p>
               )}
             </div>
